@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+	     http://www.springframework.org/schema/beans
+	     http://www.springframework.org/schema/beans/spring-beans.xsd
+	     http://www.springframework.org/schema/context
+	     http://www.springframework.org/schema/context/spring-context.xsd">
+ 
+    <!--  
+     <context:property-placeholder location="classpath:haron/aimshoot/dao/config/jdbc.properties"/>
+    -->
+    
+    <!-- DB, Redist設定 --> 
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:haron/aimshoot/config/jdbc.properties</value>
+                <value>classpath:haron/aimshoot/config/redis.properties</value>
+            </list>
+        </property>
+    </bean>
+     
+     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
+	      <property name="driverClassName" value="${jdbc.driverClassName}"/>  
+	      <property name="url" value="${jdbc.url}"/>  
+	      <property name="username" value="${jdbc.username}"/>
+	      <property name="password" value="${jdbc.password}"/>  
+	 </bean>  
+ 
+     <bean id="transactionManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="transactionTemplate"
+        class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="transactionManager" />
+    </bean>
+    
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		 <!--  
+		<property name="configLocation" value="classpath:haron/aimshoot/dao/config/mybatis-config.xml"/>
+		-->
+		<property name="mapperLocations" value="classpath*:haron/aimshoot/dao/mapper/xml/*.xml" />
+	</bean>
+	
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory" />
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+       <property name="basePackage" value="haron.aimshoot.dao.mapper" />
+ 	</bean>
+ 	
+   <!-- Redis -->
+   <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="${redis.host}"/>
+        <property name="port" value="${redis.port}"/>
+	</bean>
+
+    <bean id="msgRedis" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+        <property name="keySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+    </bean>
+   	
+    <bean id="langRedis" class="org.springframework.data.redis.core.RedisTemplate">
+	<property name="connectionFactory" ref="jedisConnectionFactory"/>
+	<property name="valueSerializer" ref = "arrayJsonRedisSerializer"/>
+	</bean>
+
+   <bean id="arrayJsonRedisSerializer" 
+    class="org.springframework.data.redis.serializer.JacksonJsonRedisSerializer">
+    <constructor-arg type="java.lang.Class" value="java.util.ArrayList"/>
+ 	</bean>
+<!--  
+   <bean id="msgOps" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+        <property name="keySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+    </bean>
+    
+   <bean id="langOps" class="org.springframework.data.redis.core.RedisTemplate">
+	<property name="connectionFactory" ref="jedisConnectionFactory"/>
+	<property name="valueSerializer" ref = "arrayJsonRedisSerializer"/>
+   </bean>
+-->    
+ 
+    <!-- Controller -->
+    <bean id="redistController" class="haron.aimshoot.controller.RedisController"/>
+    <bean id="commonController" class="haron.aimshoot.controller.CommonController"/>
+    
+    <!-- DAO -->
+    <bean id="contentDao" class="haron.aimshoot.dao.ContentDAO"> 
+  	  <property name="sqlSession" ref="sqlSession" />
+	</bean>
+	<bean id="userDao" class="haron.aimshoot.dao.UserDAO"> 
+  	  <property name="sqlSession" ref="sqlSession" />
+	</bean>
+		
+    <!-- VO -->
+    <bean id="userVo" class="haron.aimshoot.vo.UserVO"/>
+	<bean id="authVo" class="haron.aimshoot.vo.AuthVO"/>
+	<bean id="langVo" class="haron.aimshoot.vo.LangVO"/>
+	<bean id="viewVo" class="haron.aimshoot.vo.ViewVO"/>
+	<bean id="categoryVo" class="haron.aimshoot.vo.CategoryVO"/>
+	
+	<!-- Array  -->
+	<bean id="langAR" class="java.util.ArrayList"/>
+	<bean id="yearAR" class="java.util.ArrayList"/>
+	<bean id="monthAR" class="java.util.ArrayList"/>
+	<bean id="dayAR" class="java.util.ArrayList"/>
+	<bean id="msgAR" class="java.util.ArrayList"/>
+	
+    <!-- Module -->
+    <bean id="securitySafe" class="haron.aimshoot.module.SecuritySafe"/>
+    <bean id="validationCheck" class="haron.aimshoot.module.ValidationCheck"/>
+  
+  
+ 
+</beans>

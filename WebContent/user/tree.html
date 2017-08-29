@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>HTML / CSS를 이용한 트리</title>
+<head>
+<!-- 다운받은 fontello.css의 경로를 지정하여 준다. -->
+<link rel="stylesheet" href="./css/fontello.css"/>
+<style type="text/css">
+    
+    /* ul, li태그의 앞의 점, 블릿기호를 제거한다. */
+    ul { list-style:none; }
+    
+    /* fontello 아이콘과 tree의 간격 조절 */
+    .tree *:before {
+        width:17px;
+        height:20px;
+        display:inline-block;
+    }
+
+    /* 해당 영역을 닫을경우, 혹은 닫혀있는경우 사용할 이미지를 지정한다. */
+    .tree input[type="checkbox"]:checked+label:before {
+        content:"\e800";
+        font-family:fontello;
+    }
+
+    /* 해당 영역을 오픈 하였을때 변경할 이미지를 지정한다. */
+    .tree label:before {
+        content:"\e801";
+        font-family:fontello;
+    }
+
+    /* a태그로 지정한 더이상 오픈할 것이 없고 해당 페이지를 불러올때 사용될 이미지를 지정한다. */
+    .tree a:before {
+        content:"\f0f6";
+        font-family:fontello;
+    }
+
+    input[type="checkbox"] {
+        display:none;
+    }
+
+    input[type="checkbox"]:checked~ul {
+        display:none;
+    }
+</style>
+</head>
+<body>
+    <input type="checkbox" id="root"/>
+    <label for="root">트리 카테고리</label>
+    <ul class="tree">
+        <li><input type="checkbox" id="one1" checked="checked"><label for="one1">one1</label></li>
+        <li><input type="checkbox" id="one2" checked="checked"><label for="one2">one2</label></li>
+        <li>
+            <input type="checkbox" id="one3" checked="checked">
+            <label for="one3">one3</label>
+            <ul class="tree">
+                <li><input type="checkbox" id="one3-1" checked="checked"><label for="one3-1">one3-1</label></li>
+                <li><input type="checkbox" id="one3-2" checked="checked"><label for="one3-2">one3-2</label></li>
+                <li><input type="checkbox" id="one3-3" checked="checked"><label for="one3-3">one3-3</label></li>
+                <li>
+                    <input type="checkbox" id="one3-4" checked="checked">
+                    <label for="one3-4">one3-4</label>
+                    <ul class="tree">
+                        <li><a href="">one3-4-1</a></li>
+                        <li><a href="">one3-4-2</a></li>
+                        <li><a href="">one3-4-3</a></li>
+                        <li><a href="">one3-4-4</a></li>
+                        <li><a href="">one3-4-5</a></li>
+                        <li><a href="">one3-4-6</a></li>
+                        <li><a href="">one3-4-7</a></li>
+                        <li><a href="">one3-4-8</a></li>
+                        <li><a href="">one3-4-9</a></li>
+                    </ul>
+                </li>
+                <li><input type="checkbox" id="one3-5" checked="checked"><label for="one3-5">one3-5</label></li>
+                <li><input type="checkbox" id="one3-6" checked="checked"><label for="one3-6">one3-6</label></li>
+                <li><input type="checkbox" id="one3-7" checked="checked"><label for="one3-7">one3-7</label></li>
+                <li><input type="checkbox" id="one3-8" checked="checked"><label for="one3-8">one3-8</label></li>
+            </ul>
+        </li>
+    </ul>
+    <ul class="tree">
+        <li><input type="checkbox" id="two1" checked="checked"><label for="two1">two1</label></li>
+            <input type="checkbox" id="two2" checked="checked">
+            <label for="two2">two2</label>
+            <ul class="tree">
+                <li><a href="">two2-1</a></li>
+                <li><a href="">two2-2</a></li>
+                <li>
+                    <input type="checkbox" id="two2-3" checked="checked">
+                    <label for="two2-3">two2-3</label>
+                    <ul class="tree">
+                        <li><a href="">two2-3-1</a></li>
+                        <li><a href="">two2-3-2</a></li>
+                        <li><a href="">two2-3-3</a></li>
+                    </ul>
+                </li>
+                <li><a href="">two2-4</a></li>
+                <li><a href="">two2-5</a></li>
+            </ul>
+        <li><input type="checkbox" id="two3" checked="checked"><label for="two3">two3</label></li>
+    </ul>
+</body>
+</html>

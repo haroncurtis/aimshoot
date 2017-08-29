@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+    
+	<struts>
+	<!--      
+	 <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="false" />
+
+		<constant name="struts.custom.i18n.resources" value="ApplicationResources" />
+		-->
+        <package name="user" namespace="/" extends="struts-default">
+			<action name="checkSession" method="checkSession" class="haron.aimshoot.controller.UserController">
+		      <result name="success">${viewVo.getView_path()}</result>
+			</action>
+
+			<!-- ログイン -->
+		  	<action name="login" method="login" class="haron.aimshoot.controller.UserController">
+		      <result name="success">${viewVo.getView_path()}</result>
+		  	</action>
+		  	
+		  	<!-- ログアウト -->
+			<action name="logout" method="logout" class="haron.aimshoot.controller.UserController">
+		      <result name="success">${viewVo.getView_path()}</result>
+		  	</action>
+			
+		  	<!-- 会員加入画面 -->
+			<action name="joinView" method="joinView" class="haron.aimshoot.controller.UserController">
+		      <result name="success">${viewVo.getView_path()}</result>
+		  	</action>
+		  	
+		  	<!-- 会員加入 -->
+		  	<action name="join" method="join" class="haron.aimshoot.controller.UserController">
+		      <result name="success">${viewVo.getView_path()}</result>
+		  	</action>
+		  
+	  		<action name="accountSettingView" method="accountSettingView" class="haron.aimshoot.controller.UserController">
+		      <result name="success">${viewVo.getView_path()}</result>
+		  	</action>
+		  	
+	  		<action name="profileSetting" method="profileSetting" class="haron.aimshoot.controller.UserController">
+		      <result name="success">${viewVo.getView_path()}</result>
+		  	</action>
+		  			
+		  	<action name="changePwd" method="changePwd" class="haron.aimshoot.controller.UserController">
+		      <result name="success">${viewVo.getView_path()}</result>
+		  	</action>
+		  	
+		  	<action name="changePwdEXE" method="changePwdEXE" class="haron.aimshoot.controller.UserController">
+		      <result name="success">${viewVo.getView_path()}</result>
+		  	</action>
+		  	
+		  	<action name="profileEditConfirm" method="profileEditConfirm" class="haron.aimshoot.controller.UserController">
+		      <result name="success">${viewVo.getView_path()}</result>
+		  	</action>
+		  	
+		  	 <action name="categorySettingView" method="categorySettingView" class="haron.aimshoot.controller.UserController">
+		      <result name="success">${viewVo.getView_path()}</result>
+		  	</action>
+ 			
+ 			<action name="selectCategory" method="selectCategory" class="haron.aimshoot.controller.UserController">
+		      <result name="success">${viewVo.getView_path()}</result>
+			</action>
+            
+ 			<action name="updateCategory" method="updateCategory" class="haron.aimshoot.controller.UserController">
+		      <result name="success">${viewVo.getView_path()}</result>
+			</action>
+		  	
+		</package>
+	</struts>

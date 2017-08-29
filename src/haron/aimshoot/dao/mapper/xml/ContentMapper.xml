@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+  "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="haron.aimshoot.dao.mapper.ContentMapper">
+  <resultMap id="langVo" type="haron.aimshoot.vo.LangVO"/>
+  <resultMap id="msgVo" type="haron.aimshoot.vo.MsgVO"/>
+  
+  <select id="selectLang" resultMap="langVo">
+    	SELECT * FROM as_content.as_lang ORDER BY no
+  </select>
+  
+ 
+  <select id="selectMsg" resultMap="msgVo">
+    	SELECT * FROM as_content.as_multi_msg WHERE use_flg = 1
+  </select>
+  
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+    
+	<struts>
+        <package name="common" namespace="/" extends="struts-default">
+			<action name="changeLang" method="changeLang" class="haron.aimshoot.controller.CommonController">
+		      <result name="success">${viewVo.getView_path()}</result>
+			</action>
+			<action name="flushAllRedis" method="flushAllRedis" class="haron.aimshoot.controller.CommonController">
+			    <result name="success">${viewVo.getView_path()}</result>
+			</action>
+		</package>
+	</struts>
